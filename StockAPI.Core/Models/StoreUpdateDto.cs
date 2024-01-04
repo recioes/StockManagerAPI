@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockAPI.Core.Models
 {
-    public class ProductUpdateDto
+    internal class StoreUpdateDto
     {
-        public string Name { get; set; }
-        public float Price { get; set; }
-        public string Description { get; set; }
-
     }
 }

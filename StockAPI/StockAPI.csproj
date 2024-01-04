@@ -18,8 +18,4 @@
     <ProjectReference Include="..\StockAPI.Infra\StockAPI.Infra.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
