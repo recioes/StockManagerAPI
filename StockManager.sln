@@ -3,13 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockAPI", "StockAPI\StockAPI.csproj", "{45E6A6BE-5987-45C3-920D-451508034C55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockAPI", "StockAPI\StockAPI.csproj", "{45E6A6BE-5987-45C3-920D-451508034C55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockAPI.Core", "StockAPI.Core\StockAPI.Core.csproj", "{0EB81FA5-DF9F-429A-9C39-A62AD173E2BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockAPI.Core", "StockAPI.Core\StockAPI.Core.csproj", "{0EB81FA5-DF9F-429A-9C39-A62AD173E2BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockAPI.Infra", "StockAPI.Infra\StockAPI.Infra.csproj", "{37AAD784-E59C-4A13-9CBC-1EC2957E28C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockAPI.Infra", "StockAPI.Infra\StockAPI.Infra.csproj", "{37AAD784-E59C-4A13-9CBC-1EC2957E28C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockAPI.Tests", "StockAPI.Tests\StockAPI.Tests.csproj", "{A4DF168B-DDF0-4AC9-98E3-BBA83FA8FF92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockAPI.Tests", "StockAPI.Tests\StockAPI.Tests.csproj", "{A4DF168B-DDF0-4AC9-98E3-BBA83FA8FF92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6C8DC954-466F-47A6-80A5-3366F11007BC}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		Credentials.env = Credentials.env
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
