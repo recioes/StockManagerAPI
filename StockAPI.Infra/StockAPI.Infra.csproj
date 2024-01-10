@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Database\MySql\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
