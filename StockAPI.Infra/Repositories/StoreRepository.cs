@@ -20,12 +20,8 @@ namespace StockAPI.Infra.Repositories
             throw new NotImplementedException();
         }
 
+        // Criar filtro e ordenação para pesquisar por endereço também
         public Task<List<StoreModel>> SearchAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<StoreModel> SearchByAdressAsync(string address)
         {
             throw new NotImplementedException();
         }
@@ -35,7 +31,7 @@ namespace StockAPI.Infra.Repositories
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(StoreUpdateDto store)
+        public Task UpdateAsync(int storeId, StoreUpdateDto store)
         {
             throw new NotImplementedException();
         }

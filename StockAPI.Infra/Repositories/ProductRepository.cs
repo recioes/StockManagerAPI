@@ -31,6 +31,8 @@ namespace StockAPI.Infra.Repositories
             parameters.Add("Description", product.Description, DbType.String);
 
             await _connection.ExecuteAsync(sql, parameters);
+
+
         }
 
         public async Task DeleteAsync(int id)
@@ -42,24 +44,29 @@ namespace StockAPI.Infra.Repositories
             await _connection.ExecuteAsync(sql, parameters);
         }
 
-        public Task<List<ProductModel>> SearchAllAsync()
+        // Criar filtro pra filtrar por nome tbm
+        public async Task<List<ProductModel>> SearchAllAsync()
         {
-            throw new NotImplementedException();
+            var sql = "SELECT * FROM Product";
+            var result = await _connection.QueryAsync<ProductModel>(sql);
+            return result.ToList();
         }
 
-        public Task<ProductModel> SearchByIdAsync(int id)
+        public async Task<ProductModel> SearchByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var sql = "SELECT * FROM Product WHERE Id = @Id";
+            var result = await _connection.QueryFirstOrDefaultAsync<ProductModel>(sql, new { Id = id });
+            return result;
         }
 
-        public Task<ProductModel> SearchByNameAsync(string name)
+        public async Task UpdateAsync(int productId, ProductUpdateDto product)
         {
-            throw new NotImplementedException();
+            var sql = "UPDATE Product SET Name = @Name, Price = @Price, Description = @Description WHERE ProductId = @ProductId";
+            await _connection.ExecuteAsync(sql, new { product.Name, product.Price, product.Description, ProductId = productId });
         }
 
-        public Task UpdateAsync(ProductUpdateDto product)
-        {
-            throw new NotImplementedException();
-        }
+
+
+
     }
 }

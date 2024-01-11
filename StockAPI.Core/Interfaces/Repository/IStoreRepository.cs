@@ -11,9 +11,8 @@ namespace StockAPI.Core.Interfaces.Repository
     {
         Task<List<StoreModel>> SearchAllAsync();
         Task<StoreModel> SearchByIdAsync(int id);
-        Task<StoreModel> SearchByAdressAsync(string address);
         Task AddAsync(StoreModel store);
-        Task UpdateAsync(StoreUpdateDto store);
+        Task UpdateAsync(int storeId, StoreUpdateDto store);
         Task DeleteAsync(int id);
     }
 }
