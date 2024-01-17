@@ -26,6 +26,11 @@ namespace StockAPI.Infra.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<List<StoreModel>> SearchAllAsync(int page, int pageSize, string sortField, string sortDirection)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<StoreModel> SearchByIdAsync(int id)
         {
             throw new NotImplementedException();

@@ -9,7 +9,7 @@ namespace StockAPI.Core.Interfaces.Repository
 {
     public interface IProductRepository
     {
-        Task<List<ProductModel>> SearchAllAsync();
+        Task<List<ProductModel>> SearchAllAsync(int page, int pageSize, string sortField, string sortDirection);
         Task<ProductModel> SearchByIdAsync(int id);
         Task AddAsync(ProductModel product);
         Task UpdateAsync(int productId, ProductUpdateDto product);

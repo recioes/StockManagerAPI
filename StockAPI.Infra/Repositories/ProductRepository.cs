@@ -1,13 +1,7 @@
 ﻿using Dapper;
-using Microsoft.Extensions.Configuration;
 using StockAPI.Core.Interfaces.Repository;
 using StockAPI.Core.Models;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StockAPI.Infra.Repositories
 {
@@ -44,13 +38,27 @@ namespace StockAPI.Infra.Repositories
             await _connection.ExecuteAsync(sql, parameters);
         }
 
-        // Criar filtro pra filtrar por nome tbm
-        public async Task<List<ProductModel>> SearchAllAsync()
+        public async Task<List<ProductModel>> SearchAllAsync(int page, int pageSize, string sortField = "name", string sortDirection = "ASC")
         {
-            var sql = "SELECT * FROM Product";
-            var result = await _connection.QueryAsync<ProductModel>(sql);
+            var validSortFields = new Dictionary<string, string>
+            {
+              { "name", "Name" },
+              { "price", "Price" },
+              { "description", "Description" },
+              { "productId", "ProductId" },
+
+            };
+            var orderBy = validSortFields.ContainsKey(sortField.ToLower()) ? validSortFields[sortField.ToLower()] : "Name";
+
+            var direction = sortDirection.ToUpper() == "DESC" ? "DESC" : "ASC";
+
+            var sql = $"SELECT * FROM Product ORDER BY {orderBy} {direction} " +
+                      "OFFSET ((@page - 1) * @pageSize) ROWS FETCH NEXT @pageSize ROWS ONLY";
+
+            var result = await _connection.QueryAsync<ProductModel>(sql, new { page, pageSize });
             return result.ToList();
         }
+
 
         public async Task<ProductModel> SearchByIdAsync(int id)
         {
