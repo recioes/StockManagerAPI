@@ -2,43 +2,77 @@
 using StockAPI.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 
 namespace StockAPI.Infra.Repositories
 {
     public class StoreRepository : IStoreRepository
     {
-        public Task AddAsync(StoreModel store)
+        private readonly IDbConnection _connection;
+        public StoreRepository(IDbConnection connection)
         {
-            throw new NotImplementedException();
+            _connection = connection;
         }
 
-        public Task DeleteAsync(int id)
+
+        public async Task AddAsync(StoreModel store)
         {
-            throw new NotImplementedException();
+            var sql = "INSERT INTO Store (Name, Address) " +
+                 "VALUES (@Name, @Address)";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("Name", store.Name, DbType.String);
+            parameters.Add("Address", store.Address, DbType.String);
+
+            await _connection.ExecuteAsync(sql, parameters);
         }
 
-        // Criar filtro e ordenação para pesquisar por endereço também
-        public Task<List<StoreModel>> SearchAllAsync()
+        public async Task DeleteAsync(int storeId)
         {
-            throw new NotImplementedException();
+            var sql = "DELETE FROM Store WHERE StoreId = @StoreId";
+            var parameters = new DynamicParameters();
+            parameters.Add("StoreId", storeId, DbType.Int32);
+
+            await _connection.ExecuteAsync(sql, parameters);
         }
 
-        public Task<List<StoreModel>> SearchAllAsync(int page, int pageSize, string sortField, string sortDirection)
+        public async Task<List<StoreModel>> SearchAllAsync(int page, int pageSize, string sortField, string sortDirection)
         {
-            throw new NotImplementedException();
+            var validSortFields = new Dictionary<string, string>
+            {
+              { "name", "Name" },
+              { "address", "Address" },
+
+
+            };
+            var orderBy = validSortFields.ContainsKey(sortField.ToLower()) ? validSortFields[sortField.ToLower()] : "Name";
+
+            var direction = sortDirection.ToUpper() == "DESC" ? "DESC" : "ASC";
+
+            var sql = $"SELECT * FROM Store ORDER BY {orderBy} {direction} " +
+                      "OFFSET ((@page - 1) * @pageSize) ROWS FETCH NEXT @pageSize ROWS ONLY";
+
+            var result = await _connection.QueryAsync<StoreModel>(sql, new { page, pageSize });
+            return result.ToList();
         }
 
-        public Task<StoreModel> SearchByIdAsync(int id)
+        public async Task<StoreModel> SearchByIdAsync(int storeId)
         {
-            throw new NotImplementedException();
+            var sql = "SELECT * FROM Store WHERE StoreId = @StoreId";
+            var result = await _connection.QueryFirstOrDefaultAsync<StoreModel>(sql, new { StoreId = storeId });
+            return result;
         }
 
-        public Task UpdateAsync(int storeId, StoreUpdateDto store)
+        public async Task UpdateAsync(int storeId, StoreUpdateDto store)
         {
-            throw new NotImplementedException();
+            var sql = "UPDATE Store SET Name = @Name, Address = @Address WHERE StoreId = @StoreId";
+            await _connection.ExecuteAsync(sql, new { store.Name, store.Address, StoreId = storeId });
         }
     }
+    
 }

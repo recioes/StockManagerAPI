@@ -1,7 +1,9 @@
-﻿using StockAPI.Core.Interfaces.Repository;
+﻿using Dapper;
+using StockAPI.Core.Interfaces.Repository;
 using StockAPI.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,19 +12,52 @@ namespace StockAPI.Infra.Repositories
 {
     public class StockItemRepository : IStockItemRepository
     {
-        public Task AddToStockAsync(StockItemModel stockItem)
+
+        private readonly IDbConnection _connection;
+
+        public StockItemRepository(IDbConnection connection)
         {
-            throw new NotImplementedException();
+            _connection = connection;
+        }
+        public async Task UpdateStockAsync(StockItemModel stockItem)
+        {
+            var sql = @"
+             UPDATE StockItem
+             SET Quantity = Quantity + @Quantity
+             WHERE ProductId = @ProductId AND StoreId = @StoreId";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("ProductId", stockItem.ProductId, DbType.Int32);
+            parameters.Add("StoreId", stockItem.StoreId, DbType.Int32);
+            parameters.Add("Quantity", stockItem.Quantity, DbType.Int32);
+
+            await _connection.ExecuteAsync(sql, parameters);
         }
 
-        public Task CreateStockAsync(StockItemModel stockItem)
+        public async Task CreateStockAsync(StockItemModel stockItem)
         {
-            throw new NotImplementedException();
+
+            var sql = @"
+             INSERT INTO StockItem (ProductId, StoreId, Quantity)
+             VALUES (@ProductId, @StoreId, @Quantity)";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("ProductId", stockItem.ProductId, DbType.Int32);
+            parameters.Add("StoreId", stockItem.StoreId, DbType.Int32);
+            parameters.Add("Quantity", stockItem.Quantity, DbType.Int32);
+
+            await _connection.ExecuteAsync(sql, parameters);
+
+
         }
 
-        public Task DeleteFromStockAsync(int id)
+        public async Task DeleteFromStockAsync(int stockItemId)
         {
-            throw new NotImplementedException();
+            var sql = "DELETE FROM StockItem WHERE StockItemId = @StockItemId";
+            var parameters = new DynamicParameters();
+            parameters.Add("StockItemId", stockItemId, DbType.Int32);
+
+            await _connection.ExecuteAsync(sql, parameters);
         }
     }
 }

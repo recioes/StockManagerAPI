@@ -10,10 +10,10 @@ namespace StockAPI.Core.Interfaces.Repository
     public interface IProductRepository
     {
         Task<List<ProductModel>> SearchAllAsync(int page, int pageSize, string sortField, string sortDirection);
-        Task<ProductModel> SearchByIdAsync(int id);
+        Task<ProductModel> SearchByIdAsync(int ProductId);
         Task AddAsync(ProductModel product);
         Task UpdateAsync(int productId, ProductUpdateDto product);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(int ProductId);
 
     }
 }

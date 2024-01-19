@@ -29,11 +29,11 @@ namespace StockAPI.Infra.Repositories
 
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int productId)
         {
-            var sql = "DELETE FROM Product WHERE Id = @Id";
+            var sql = "DELETE FROM Product WHERE ProductId = @ProductId";
             var parameters = new DynamicParameters();
-            parameters.Add("Id", id, DbType.Int32);
+            parameters.Add("ProductId", productId, DbType.Int32);
 
             await _connection.ExecuteAsync(sql, parameters);
         }
@@ -60,10 +60,10 @@ namespace StockAPI.Infra.Repositories
         }
 
 
-        public async Task<ProductModel> SearchByIdAsync(int id)
+        public async Task<ProductModel> SearchByIdAsync(int productId)
         {
-            var sql = "SELECT * FROM Product WHERE Id = @Id";
-            var result = await _connection.QueryFirstOrDefaultAsync<ProductModel>(sql, new { Id = id });
+            var sql = "SELECT * FROM Product WHERE ProductId = @ProductId";
+            var result = await _connection.QueryFirstOrDefaultAsync<ProductModel>(sql, new { ProductId = productId });
             return result;
         }
 

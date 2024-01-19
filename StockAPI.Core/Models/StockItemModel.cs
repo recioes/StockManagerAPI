@@ -13,7 +13,9 @@ namespace StockAPI.Core.Models
         [Key]
         public int StockItemId { get; set; }
 
+        public int ProductId { get; set; }
         public ProductModel Product { get; set; }
+        public int StoreId { get; set; }
         public StoreModel Store { get; set; }
         public int Quantity { get; set; }
     }

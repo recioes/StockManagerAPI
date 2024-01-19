@@ -10,8 +10,8 @@ namespace StockAPI.Core.Interfaces.Repository
     public interface IStockItemRepository
     {
         Task CreateStockAsync(StockItemModel stockItem);
-        Task AddToStockAsync(StockItemModel stockItem);
-        Task DeleteFromStockAsync(int id);
+        Task UpdateStockAsync(StockItemModel stockItem);
+        Task DeleteFromStockAsync(int stockItemId);
 
 
     }
