@@ -22,5 +22,6 @@ namespace StockAPI.Core.Models
         [StringLength(1000)]
         public string Description { get; set; }
 
+        
     }
 }

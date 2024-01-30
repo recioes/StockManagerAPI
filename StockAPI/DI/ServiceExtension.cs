@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Extensions.DependencyInjection;
+using MySql.Data.MySqlClient;
 using StockAPI.Core.Interfaces.Repository;
 using StockAPI.Infra.Repositories;
 using System.Configuration;
