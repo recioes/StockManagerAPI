@@ -5,15 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StockAPI.Core.Interfaces.Repository
+namespace StockAPI.Core.Interfaces.Services
 {
-    public interface IStockItemRepository
+    public interface IStockItemService
     {
         Task CreateStockAsync(StockItemModel stockItem);
         Task UpdateStockAsync(StockItemModel stockItem);
         Task DeleteFromStockAsync(int stockItemId);
-        Task<StockItemModel> SearchByIdAsync(int stockItemId);
-
-
     }
 }

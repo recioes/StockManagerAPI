@@ -14,13 +14,20 @@ namespace StockAPI.Core.Services
         }
         public async Task AddAsync(ProductModel product)
         {
-            var existingProduct = await _productRepository.SearchByIdAsync(product.ProductId);
-            if (existingProduct != null)
+           await _productRepository.AddAsync(product);
+        }
+
+        public async Task<ProductModel> SearchByIdAsync(int productId)
+        {
+            var existingProduct = await _productRepository.SearchByIdAsync(productId);
+            if (existingProduct == null)
             {
-                throw new InvalidOperationException("Produto já existe.");
+                throw new InvalidOperationException($"Produto com ID {productId} não encontrado.");
             }
 
-            await _productRepository.AddAsync(product);
+            return await _productRepository.SearchByIdAsync(productId);
+
+
         }
 
         public async Task DeleteAsync(int productId)

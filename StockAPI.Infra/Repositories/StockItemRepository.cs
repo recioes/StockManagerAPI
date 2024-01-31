@@ -59,5 +59,11 @@ namespace StockAPI.Infra.Repositories
 
             await _connection.ExecuteAsync(sql, parameters);
         }
+
+        public async Task<StockItemModel> SearchByIdAsync(int stockItemId)
+        {
+            var sql = "SELECT * FROM StockItem WHERE StockItemId = @StockItemId";
+            return await _connection.QuerySingleOrDefaultAsync<StockItemModel>(sql, new { StockItemId = stockItemId });
+        }
     }
 }

@@ -67,11 +67,12 @@ namespace StockAPI.Infra.Repositories
             return result;
         }
 
-        public async Task UpdateAsync(int productId, ProductModel product)
+        public async Task UpdateAsync(ProductModel product)
         {
             var sql = "UPDATE Product SET Name = @Name, Price = @Price, Description = @Description WHERE ProductId = @ProductId";
-            await _connection.ExecuteAsync(sql, new { product.Name, product.Price, product.Description, ProductId = productId });
+            await _connection.ExecuteAsync(sql, product);
         }
+
 
 
 
