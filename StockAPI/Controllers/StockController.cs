@@ -17,7 +17,7 @@ namespace StockAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         [SwaggerOperation(Summary = "Creates a stock entry for a specific item")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -34,7 +34,7 @@ namespace StockAPI.Controllers
 
 
         [HttpPut("{id}")]
-        [Authorize]
+       // [Authorize]
         [SwaggerOperation(Summary = "Updates an existing stock item")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -50,13 +50,13 @@ namespace StockAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        //[Authorize]
         [SwaggerOperation(Summary = "Deletes an existing stock for an specific item")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteFromStockAsync([FromRoute] int stockItemId)
+        public async Task<IActionResult> DeleteFromStockAsync([FromRoute] int id)
         {
-            await _stockItemService.DeleteFromStockAsync(stockItemId);
+            await _stockItemService.DeleteFromStockAsync(id);
             return NoContent();
         }
 

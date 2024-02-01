@@ -23,4 +23,8 @@
     <ProjectReference Include="..\StockAPI.Infra\StockAPI.Infra.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<None Update="Credentials.env" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+
 </Project>

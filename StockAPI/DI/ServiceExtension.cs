@@ -21,14 +21,14 @@ namespace StockAPI.DI
             );
 
             //Repositories
-            services.AddSingleton<IProductRepository, ProductRepository>();
-            services.AddSingleton<IStockItemRepository, StockItemRepository>();
-            services.AddSingleton<IStoreRepository, StoreRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IStockItemRepository, StockItemRepository>();
+            services.AddScoped<IStoreRepository, StoreRepository>();
 
             //Services
-            services.AddSingleton<IProductService, ProductService>();
-            services.AddSingleton<IStockItemService, StockItemService>();
-            services.AddSingleton<IStoreService, StoreService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IStockItemService, StockItemService>();
+            services.AddScoped<IStoreService, StoreService>();
 
         }
     }
