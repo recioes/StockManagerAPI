@@ -27,6 +27,8 @@ namespace StockAPI.DI
 
             //Services
             services.AddSingleton<IProductService, ProductService>();
+            services.AddSingleton<IStockItemService, StockItemService>();
+            services.AddSingleton<IStoreService, StoreService>();
 
         }
     }

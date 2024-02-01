@@ -25,7 +25,7 @@ namespace StockAPI.Core.Services
                 throw new InvalidOperationException($"Produto com ID {productId} não encontrado.");
             }
 
-            return await _productRepository.SearchByIdAsync(productId);
+            return existingProduct;
 
 
         }

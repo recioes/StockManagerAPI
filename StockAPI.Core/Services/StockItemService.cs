@@ -1,11 +1,6 @@
 ﻿using StockAPI.Core.Interfaces.Repository;
 using StockAPI.Core.Interfaces.Services;
 using StockAPI.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StockAPI.Core.Services
 {
@@ -20,7 +15,11 @@ namespace StockAPI.Core.Services
 
         public async Task CreateStockAsync(StockItemModel stockItem)
         {
-           await _stockItemRepository.CreateStockAsync(stockItem);
+            if (stockItem.Quantity <= 0)
+            {
+                throw new ArgumentException("Quantidade inválida.");
+            }
+            await _stockItemRepository.CreateStockAsync(stockItem);
         }
 
         public async Task DeleteFromStockAsync(int stockItemId)

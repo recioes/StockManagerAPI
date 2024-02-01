@@ -1,5 +1,6 @@
 using dotenv.net;
 using StockAPI.DI;
+using StockAPI.Middleware;
 
 DotEnv.Load();
 
@@ -24,7 +25,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//Middlewares 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.UseAuthorization();
 

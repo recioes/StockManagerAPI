@@ -11,7 +11,7 @@ namespace StockAPI.Core.Interfaces.Services
     {
         Task<List<StoreModel>> SearchAllAsync(int page, int pageSize, string sortField, string sortDirection);
         Task AddAsync(StoreModel store);
-        Task<ProductModel> SearchByIdAsync(int ProductId);
+        Task<StoreModel> SearchByIdAsync(int storeId);
         Task UpdateAsync(int storeId, StoreUpdateDto store);
         Task DeleteAsync(int storeId);
     }
