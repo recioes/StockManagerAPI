@@ -41,23 +41,24 @@ namespace StockAPI.Infra.Repositories
         public async Task<List<ProductModel>> SearchAllAsync(int page, int pageSize, string sortField = "name", string sortDirection = "ASC")
         {
             var validSortFields = new Dictionary<string, string>
-            {
-              { "name", "Name" },
-              { "price", "Price" },
-              { "description", "Description" },
-              { "productId", "ProductId" },
+    {
+                { "name", "Name" },
+                { "price", "Price" },
+                { "description", "Description" },
+                { "productId", "ProductId" },
+    };
 
-            };
             var orderBy = validSortFields.ContainsKey(sortField.ToLower()) ? validSortFields[sortField.ToLower()] : "Name";
-
             var direction = sortDirection.ToUpper() == "DESC" ? "DESC" : "ASC";
 
-            var sql = $"SELECT * FROM Product ORDER BY {orderBy} {direction} " +
-                      "OFFSET ((@page - 1) * @pageSize) ROWS FETCH NEXT @pageSize ROWS ONLY";
+            int offset = (page - 1) * pageSize;
 
-            var result = await _connection.QueryAsync<ProductModel>(sql, new { page, pageSize });
+            var sql = $"SELECT * FROM Product ORDER BY {orderBy} {direction} LIMIT @PageSize OFFSET @Offset";
+
+            var result = await _connection.QueryAsync<ProductModel>(sql, new { PageSize = pageSize, Offset = offset });
             return result.ToList();
         }
+
 
 
         public async Task<ProductModel> SearchByIdAsync(int productId)

@@ -14,10 +14,22 @@ namespace StockAPI.DI
 
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
-         
+
             //Configurations
+            string dbUser = Environment.GetEnvironmentVariable("DB_USER");
+            string dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
+
+            if (string.IsNullOrEmpty(dbUser) || string.IsNullOrEmpty(dbPassword))
+            {
+                throw new InvalidOperationException("As variáveis de ambiente DB_USER e/ou DB_PASSWORD não estão configuradas corretamente.");
+            }
+
+            string connectionString = configuration.GetConnectionString("DefaultConnection")
+                .Replace("{DB_USER}", dbUser)
+                .Replace("{DB_PASSWORD}", dbPassword);
+
             services.AddScoped<IDbConnection>(serviceProvider =>
-                new MySqlConnection(configuration.GetConnectionString("DefaultConnection"))
+                new MySqlConnection(connectionString)
             );
 
             //Repositories

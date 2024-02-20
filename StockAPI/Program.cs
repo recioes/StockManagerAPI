@@ -4,9 +4,9 @@ using StockAPI.DI;
 using StockAPI.Middleware;
 
 
-
+Env.Load(".env");
 var builder = WebApplication.CreateBuilder(args);
-Env.Load("Credentials.env");
+
 
 // Add services to the container.
 builder.Services.AddControllers();
