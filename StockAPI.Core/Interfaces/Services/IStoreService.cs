@@ -1,4 +1,5 @@
-﻿using StockAPI.Core.Models;
+﻿using StockAPI.Core.DTOs;
+using StockAPI.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace StockAPI.Core.Interfaces.Services
     public interface IStoreService
     {
         Task<List<StoreModel>> SearchAllAsync(int page, int pageSize, string sortField, string sortDirection);
-        Task AddAsync(StoreModel store);
+        Task AddAsync(StoreDto store);
         Task<StoreModel> SearchByIdAsync(int storeId);
-        Task UpdateAsync(int storeId, StoreUpdateDto store);
+        Task UpdateAsync(int storeId, StoreDto store);
         Task DeleteAsync(int storeId);
     }
 }

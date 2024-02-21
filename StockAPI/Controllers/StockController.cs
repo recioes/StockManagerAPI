@@ -6,6 +6,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace StockAPI.Controllers
 {
+
+    [Route("api/[controller]")]
+    [ApiController]
     public class StockController : ApiController
     {
 

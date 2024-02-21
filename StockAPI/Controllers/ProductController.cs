@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StockAPI.Core.DTOs;
 using StockAPI.Core.Interfaces.Services;
 using StockAPI.Core.Models;
 using StockAPI.Core.Services;
@@ -26,7 +27,7 @@ namespace StockAPI.Controllers
         [SwaggerOperation(Summary = "Creates a new product")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddAsync([FromBody] ProductModel product)
+        public async Task<IActionResult> AddAsync([FromBody] ProductDto product)
         {
             if (!ModelState.IsValid)
             {
@@ -38,14 +39,14 @@ namespace StockAPI.Controllers
         }
         
         [HttpGet("{id}")]
-        [AllowAnonymous]
+       // [AllowAnonymous]
         [SwaggerOperation(Summary = "Gets a product by its Id")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductModel>> SearchByIdAsync(int id)
         {
-            await _productService.SearchByIdAsync(id);
-            return Ok();
+           var products = await _productService.SearchByIdAsync(id);
+            return Ok(products);
         }
 
 
@@ -62,13 +63,14 @@ namespace StockAPI.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+       // [AllowAnonymous]
         [SwaggerOperation(Summary = "Gets all products")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ProductModel>> SearchAllAsync([FromQuery] int page = 1, int pageSize = 10, string sortField = "name", string sortDirection = "ASC")
+
+        public async Task<ActionResult<IEnumerable<ProductModel>>> SearchAllAsync([FromQuery] int page = 1, int pageSize = 10, string sortField = "name", string sortDirection = "ASC")
         {
-            await _productService.SearchAllAsync(page, pageSize, sortField, sortDirection);
-            return Ok();
+            var products = await _productService.SearchAllAsync(page, pageSize, sortField, sortDirection);
+            return Ok(products);
         }
 
         [HttpPut("{id}")]
@@ -76,7 +78,7 @@ namespace StockAPI.Controllers
         [SwaggerOperation(Summary = "Updates an existing product")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody] ProductUpdateDto product)
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] ProductDto product)
         {
             if (!ModelState.IsValid)
             {

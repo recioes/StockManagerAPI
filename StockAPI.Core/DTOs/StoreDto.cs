@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StockAPI.Core.Models
 {
-    public class StoreUpdateDto
+    public class StoreDto
     {
         [Required]
         [StringLength(255)]

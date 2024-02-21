@@ -1,4 +1,5 @@
-﻿using StockAPI.Core.Interfaces.Repository;
+﻿using StockAPI.Core.DTOs;
+using StockAPI.Core.Interfaces.Repository;
 using StockAPI.Core.Interfaces.Services;
 using StockAPI.Core.Models;
 
@@ -12,9 +13,16 @@ namespace StockAPI.Core.Services
         {
             _productRepository = productRepository;
         }
-        public async Task AddAsync(ProductModel product)
+        public async Task AddAsync(ProductDto product)
         {
-           await _productRepository.AddAsync(product);
+            var productModel = new ProductModel
+            {
+                Name = product.Name,
+                Price = product.Price,
+                Description = product.Description
+            };
+
+            await _productRepository.AddAsync(productModel);
         }
 
         public async Task<ProductModel> SearchByIdAsync(int productId)
@@ -47,7 +55,7 @@ namespace StockAPI.Core.Services
         }
 
 
-        public async Task UpdateAsync(int productId, ProductUpdateDto product)
+        public async Task UpdateAsync(int productId, ProductDto product)
         {
             var existingProduct = await _productRepository.SearchByIdAsync(productId);
             if (existingProduct == null)

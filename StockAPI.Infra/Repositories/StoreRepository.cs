@@ -48,16 +48,17 @@ namespace StockAPI.Infra.Repositories
               { "name", "Name" },
               { "address", "Address" },
 
-
             };
-            var orderBy = validSortFields.ContainsKey(sortField.ToLower()) ? validSortFields[sortField.ToLower()] : "Name";
 
+            var orderBy = validSortFields.ContainsKey(sortField.ToLower()) ? validSortFields[sortField.ToLower()] : "Name";
             var direction = sortDirection.ToUpper() == "DESC" ? "DESC" : "ASC";
 
-            var sql = $"SELECT * FROM Store ORDER BY {orderBy} {direction} " +
-                      "OFFSET ((@page - 1) * @pageSize) ROWS FETCH NEXT @pageSize ROWS ONLY";
+            int offset = (page - 1) * pageSize;
 
-            var result = await _connection.QueryAsync<StoreModel>(sql, new { page, pageSize });
+            var sql = $"SELECT * FROM Store ORDER BY {orderBy} {direction} LIMIT @PageSize OFFSET @Offset";
+
+            var result = await _connection.QueryAsync<StoreModel>(sql, new { PageSize = pageSize, Offset = offset });
+            
             return result.ToList();
         }
 

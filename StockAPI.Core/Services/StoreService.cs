@@ -1,4 +1,5 @@
-﻿using StockAPI.Core.Interfaces.Repository;
+﻿using StockAPI.Core.DTOs;
+using StockAPI.Core.Interfaces.Repository;
 using StockAPI.Core.Interfaces.Services;
 using StockAPI.Core.Models;
 using System;
@@ -18,9 +19,14 @@ namespace StockAPI.Core.Services
             _storeRepository = storeRepository;
         }
 
-        public async Task AddAsync(StoreModel store)
+        public async Task AddAsync(StoreDto store)
         {
-            await _storeRepository.AddAsync(store);
+            var storeModel = new StoreModel
+            {
+                Name = store.Name,
+                Address = store.Address,
+            };
+            await _storeRepository.AddAsync(storeModel);
         }
 
        public async Task<StoreModel> SearchByIdAsync(int storeId)
@@ -51,7 +57,7 @@ namespace StockAPI.Core.Services
             return await _storeRepository.SearchAllAsync(page, pageSize, sortField, sortDirection);
         }
 
-        public async Task UpdateAsync(int storeId, StoreUpdateDto store)
+        public async Task UpdateAsync(int storeId, StoreDto store)
         {
             var existingStore = await _storeRepository.SearchByIdAsync(storeId);
             if (existingStore == null)

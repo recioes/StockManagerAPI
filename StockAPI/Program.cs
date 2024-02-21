@@ -16,7 +16,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // Swagger UI disponível apenas em desenvolvimento
