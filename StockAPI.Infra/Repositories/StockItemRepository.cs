@@ -19,7 +19,7 @@ namespace StockAPI.Infra.Repositories
         {
             _connection = connection;
         }
-        public async Task UpdateStockAsync(StockItemModel stockItem)
+        public async Task AddMoreToStockAsync(StockItemModel stockItem)
         {
             var sql = @"
              UPDATE StockItem
@@ -51,7 +51,25 @@ namespace StockAPI.Infra.Repositories
 
         }
 
-        public async Task DeleteFromStockAsync(int stockItemId)
+        public async Task LowerStockQuantityAsync(StockItemModel stockItem)
+        {
+
+            var sql = @"
+             UPDATE StockItem
+             SET Quantity = Quantity - @Quantity
+             WHERE ProductId = @ProductId AND StoreId = @StoreId";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("ProductId", stockItem.ProductId, DbType.Int32);
+            parameters.Add("StoreId", stockItem.StoreId, DbType.Int32);
+            parameters.Add("Quantity", stockItem.Quantity, DbType.Int32);
+
+            await _connection.ExecuteAsync(sql, parameters);
+
+
+        }
+
+        public async Task DeleteStockAsync(int stockItemId)
         {
             var sql = "DELETE FROM StockItem WHERE StockItemId = @StockItemId";
             var parameters = new DynamicParameters();
