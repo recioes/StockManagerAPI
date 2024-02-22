@@ -14,7 +14,7 @@ O projeto "StockManager API" é uma aplicação C# desenvolvida para gerenciar o
 <br>
 
 <p align="center">
-  <img alt="design" height="600px" src= "https://source.unsplash.com/random/900%C3%97700/?inventory">
+  <img alt="design" height="400px" src= "https://private-user-images.githubusercontent.com/118849369/306836999-0190b7e0-f5c7-4e8f-9d5f-97dc8effa1f9.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg1NzA3NzEsIm5iZiI6MTcwODU3MDQ3MSwicGF0aCI6Ii8xMTg4NDkzNjkvMzA2ODM2OTk5LTAxOTBiN2UwLWY1YzctNGU4Zi05ZDVmLTk3ZGM4ZWZmYTFmOS5qcGc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMjIyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDIyMlQwMjU0MzFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mN2M0MTVlZTU1Zjg2NTNmMThlYjU0OWFlNmY3MWVkMDBjM2IyMmFmNWNmOTJlMThlNzZkYmQzMTNlNDk4NDdiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.wmlvPxdyp91RhDMDdU73dlI992yafyL1uobPC7K0INw">
 </p>
 
 ## 🚀 Tecnologias
