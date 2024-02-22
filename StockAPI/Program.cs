@@ -1,15 +1,24 @@
+using dotenv.net;
+using DotNetEnv;
+using StockAPI.DI;
+using StockAPI.Middleware;
+
+
+Env.Load(".env");
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
+// Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.RegisterServices(builder.Configuration); // Registra serviços personalizados.
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+// Swagger UI disponível apenas em desenvolvimento
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -18,7 +27,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseRouting(); // Define o roteamento de requisições.
+
+
+app.UseAuthentication(); 
+app.UseAuthorization(); 
 
 app.MapControllers();
 
