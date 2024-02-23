@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using MySql.Data.MySqlClient;
 using StockAPI.Core.Interfaces.Repository;
 using StockAPI.Core.Interfaces.Services;
@@ -6,6 +9,7 @@ using StockAPI.Core.Services;
 using StockAPI.Infra.Repositories;
 using System.Configuration;
 using System.Data;
+using System.Text;
 
 namespace StockAPI.DI
 {
@@ -15,7 +19,7 @@ namespace StockAPI.DI
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
 
-            //Configurations
+            //Connection string Configurations
             string dbUser = Environment.GetEnvironmentVariable("DB_USER");
             string dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
 
@@ -41,6 +45,8 @@ namespace StockAPI.DI
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IStockItemService, StockItemService>();
             services.AddScoped<IStoreService, StoreService>();
+
+            
 
         }
     }
