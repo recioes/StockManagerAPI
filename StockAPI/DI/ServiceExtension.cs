@@ -6,6 +6,7 @@ using MySql.Data.MySqlClient;
 using StockAPI.Core.Interfaces.Repository;
 using StockAPI.Core.Interfaces.Services;
 using StockAPI.Core.Services;
+using StockAPI.Core.Services.Auth;
 using StockAPI.Infra.Repositories;
 using System.Configuration;
 using System.Data;
@@ -45,8 +46,9 @@ namespace StockAPI.DI
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IStockItemService, StockItemService>();
             services.AddScoped<IStoreService, StoreService>();
+            services.AddScoped<TokenService>();
 
-            
+
 
         }
     }
